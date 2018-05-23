@@ -1,4 +1,4 @@
-package demo.forkjoin;
+package demo.task.forkjoin.core;
 
 import java.math.BigDecimal;
 
@@ -9,6 +9,7 @@ import java.math.BigDecimal;
  * @time: 2018/5/21 18:30:08
  */
 public class GoldOreOutcome {
+	public static long dealMillis = 0;
 	// 金子重量KG
 	private BigDecimal goldWeight = new BigDecimal("0");
 	// 废料重量KG
@@ -29,15 +30,20 @@ public class GoldOreOutcome {
 		BigDecimal theWeight = tw.multiply(new BigDecimal(percent + ""));
 		goldWeight = goldWeight.add(theWeight);
 		scrapWeight = scrapWeight.add(tw.subtract(theWeight));
+		this.sleep(dealMillis);
 		return this;
 	}
 
-	public GoldOreOutcome superpose(GoldOreOutcome goldOreOutcome) {
+	void sleep(long millis) {
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(millis);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public GoldOreOutcome superpose(GoldOreOutcome goldOreOutcome) {
+//		this.sleep(0);
 		goldWeight = this.goldWeight.add(goldOreOutcome.goldWeight);
 		scrapWeight = this.scrapWeight.add(goldOreOutcome.scrapWeight);
 		return this;

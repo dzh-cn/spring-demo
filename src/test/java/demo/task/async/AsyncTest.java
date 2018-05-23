@@ -1,6 +1,6 @@
-package demo.task;
+package demo.task.async;
 
-import demo.tast.async.LogClient;
+import demo.task.async.LogClient;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

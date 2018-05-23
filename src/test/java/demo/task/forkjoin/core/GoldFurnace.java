@@ -1,10 +1,12 @@
-package demo.forkjoin;
+package demo.task.forkjoin.core;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.RecursiveTask;
 
 /**
@@ -16,6 +18,8 @@ import java.util.concurrent.RecursiveTask;
 public class GoldFurnace extends RecursiveTask<GoldOreOutcome> {
 
 	private static Logger logger = LoggerFactory.getLogger(GoldFurnace.class);
+
+	private static Set<String> threadSet = new HashSet<>();
 
 	public GoldFurnace(LinkedList<GoldOre> goldOres) {
 		if (goldOres == null || goldOres.isEmpty()) {
@@ -35,6 +39,7 @@ public class GoldFurnace extends RecursiveTask<GoldOreOutcome> {
 	private int end;
 
 	protected GoldOreOutcome compute() {
+		addThreadRecord();
 		logger.info("GoldFurnace.compute furnace: {}", this);
 		if (end == 0) {
 			return null;
@@ -62,6 +67,18 @@ public class GoldFurnace extends RecursiveTask<GoldOreOutcome> {
 		goldFurnaces.forEach(g -> oreOutcome.superpose(g.join()));
 
 		return oreOutcome;
+	}
+
+	static void addThreadRecord() {
+		threadSet.add(Thread.currentThread().getName());
+	}
+
+	public static int getThreadCount() {
+		return threadSet.size();
+	}
+
+	public static void clear() {
+		threadSet.clear();
 	}
 
 	@Override

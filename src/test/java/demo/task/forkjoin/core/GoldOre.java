@@ -1,4 +1,4 @@
-package demo.forkjoin;
+package demo.task.forkjoin.core;
 
 /**
  * 金矿石

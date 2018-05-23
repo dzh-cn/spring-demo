@@ -1,4 +1,4 @@
-package demo.tast.async;
+package demo.task.async;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
