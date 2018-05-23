@@ -19,10 +19,11 @@ public class LogService {
 	@Async
 	public void log(String message) {
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			logger.error("LogService.log e: {}", e);
 		}
-		logger.error("LogService.log message: {}", message);
+		logger.info("LogService.log message: {}", message);
+		throw new RuntimeException("*****");
 	}
 }

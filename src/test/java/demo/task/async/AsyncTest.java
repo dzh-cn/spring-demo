@@ -1,10 +1,10 @@
 package demo.task.async;
 
-import demo.task.async.LogClient;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -19,20 +19,23 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration("classpath:demo.task/asyncContext.xml")
 public class AsyncTest {
 	private static Logger logger = LoggerFactory.getLogger(AsyncTest.class);
+	@Autowired
+	LogService logService;
 
 	@Autowired
-	LogClient logService;
+	AsyncUncaughtExceptionHandler exceptionHandler;
 
 	@Test
 	public void test() {
 		for (int i = 0; i < 10; i++) {
-			logService.asyncLog("log test ..." + i);
+			logService.log("log test ..." + i);
 		}
+		logger.info("AsyncTest.test end: end ...");
 		try {
 			// 主线程等到任务执行完成再结束
-			Thread.sleep(10000);
+			Thread.sleep(20000);
 		} catch (InterruptedException e) {
-			logger.error("AsyncTest.test error: {}", e);
+			logger.error("AsyncTest.test error: {}", e.getMessage());
 		}
 	}
 }
