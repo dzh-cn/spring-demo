@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Method;
 
 /**
- * ExceptionHandler
+ * AsyncExceptionHandler
  *
  * @author: dongzhihua
  * @time: 2018/5/23 14:47:32
